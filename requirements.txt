@@ -1,1 +1,1 @@
-streamlit-clickable-images
+st-clickable-images
