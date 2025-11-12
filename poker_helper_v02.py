@@ -12,7 +12,7 @@ st.set_page_config(page_title="Texas Hold'em – River, adversari multipli + pre
 
 # --- Config pachet cărți (cu "10", nu "T") ---
 SUITS = ["S", "H", "C", "D"]  # ♠ ♥ ♣ ♦
-SUIT_SYMBOL = {"S": "♠", "H": "❤️", "C": "♣", "D": "♦", "Q": "?"}
+SUIT_SYMBOL = {"S": "♠", "H": "❤️", "C": "♣", "D": "♦️", "Q": "?"}
 SUIT_COLOR = {"S": "#111827", "H": "#b91c1c", "C": "#111827", "D": "#b91c1c", "Q": "#111827"}  # negru/roșu
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]  # A e ultimul
 RVAL = {r: i + 2 for i, r in enumerate(RANKS)}  # 2..14
