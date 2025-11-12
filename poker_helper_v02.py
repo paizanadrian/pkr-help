@@ -204,6 +204,7 @@ legend_txt = (
 )
 st.sidebar.text(legend_txt)
 st.sidebar.markdown("---")
+
 # ============ HEADER + PREVIEW ============
 sel = st.session_state.selected
 hole, board_all = sel[:2], sel[2:7]
@@ -257,7 +258,7 @@ with left:
             labeldistance=1.25  # mută textul mai spre exterior
 
         )
-        plt.setp(ax.texts, fontsize=4)
+        plt.setp(ax.texts, fontsize=6)
         ax.axis("equal")
         # Donut opțional:
         # centre = plt.Circle((0, 0), 0.70, fc="white"); fig.gca().add_artist(centre)
