@@ -188,7 +188,22 @@ st.sidebar.header("Setări masă")
 total_players = st.sidebar.number_input("Număr total jucători", min_value=2, max_value=10, value=6, step=1)
 use_mc = st.sidebar.checkbox("Monte Carlo (deal fără înlocuire)", value=True)
 mc_trials = st.sidebar.slider("Runde simulare", 1_000, 100_000, 20_000, step=1_000)
-
+st.sidebar.markdown("---")
+st.sidebar.markdown("### Ordinea mâinilor câștigătoare:")
+legend_txt = (
+    "1) Chintă roială\n"
+    "2) Chintă de culoare\n"
+    "3) Careu\n"
+    "4) Full\n"
+    "5) Culoare\n"
+    "6) Chintă\n"
+    "7) Trei de un fel\n"
+    "8) Două perechi\n"
+    "9) O pereche\n"
+    "10) Carte mare"
+)
+st.sidebar.text(legend_txt)
+st.sidebar.markdown("---")
 # ============ HEADER + PREVIEW ============
 sel = st.session_state.selected
 hole, board_all = sel[:2], sel[2:7]
