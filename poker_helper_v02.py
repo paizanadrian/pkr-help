@@ -196,7 +196,7 @@ hole, board_all = sel[:2], sel[2:7]
 left, right = st.columns([1, 1])
 
 with left:
-    st.markdown(f"**Cărțile tale (text):** {' '.join(pretty(c) for c in hole) if hole else '-'}")
+    st.markdown(f"**Cărțile tale (2):** {' '.join(pretty(c) for c in hole) if hole else '-'}")
     st.markdown(f"**Board (5):** {' '.join(pretty(c) for c in board_all) if board_all else '-'}")
 
     # --- dacă avem 7 cărți, calculează M/W/T sus ---
