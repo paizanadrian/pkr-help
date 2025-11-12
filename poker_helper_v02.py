@@ -12,8 +12,8 @@ st.set_page_config(page_title="Texas Hold'em – River, adversari multipli + pre
 
 # --- Config pachet cărți (cu "10", nu "T") ---
 SUITS = ["S", "H", "C", "D"]  # ♠ ♥ ♣ ♦
-SUIT_SYMBOL = {"S": "♠", "H": "❤️", "C": "♣", "D": "♦"}
-SUIT_COLOR = {"S": "#111827", "H": "#b91c1c", "C": "#111827", "D": "#b91c1c"}  # negru/roșu
+SUIT_SYMBOL = {"S": "♠", "H": "❤️", "C": "♣", "D": "♦", "Q": "?"}
+SUIT_COLOR = {"S": "#111827", "H": "#b91c1c", "C": "#111827", "D": "#b91c1c", "Q": "#111827"}  # negru/roșu
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]  # A e ultimul
 RVAL = {r: i + 2 for i, r in enumerate(RANKS)}  # 2..14
 DECK = [r + s for s in SUITS for r in RANKS]
@@ -28,7 +28,8 @@ def pretty(c: str) -> str:
     return f"{r}{SUIT_SYMBOL[s]}"
 
 # --- SVG (data URI) pentru o carte; w,h mai mari pentru preview ---
-def svg_card(rank: str, suit: str, selected: bool, w: int = 140, h: int = 190) -> str:
+def svg_card(rank: str, suit: str, selected: bool, w: int = 120, h: int = 190) -> str:
+
     sym = SUIT_SYMBOL[suit]
     fg = SUIT_COLOR[suit]
     stroke = "#10b981" if selected else "rgba(0,0,0,0.25)"
@@ -219,6 +220,9 @@ with left:
             f"**Combinații posibile pentru 1 adversar:** {M:,}  ·  "
             f"**Te bat:** {W:,}  ·  **Egal:** {T:,}"
         )
+        hero_label = label_from_score(hero_score)
+        st.success(f"🃏 Mâna ta pe river: **{RO_LABEL[hero_label]}** {format_hero_score(hero_score)}")
+
     else:
         st.markdown("**Combinații posibile:** –  ·  **Te bat:** –  ·  **Egal:** –")
 
@@ -227,7 +231,7 @@ with left:
         import matplotlib.pyplot as plt
         prob_red = max(0.0, min(1.0, prob_red))
         prob_green = 1.0 - prob_red
-        fig, ax = plt.subplots(figsize=(1.5, 1.5))
+        fig, ax = plt.subplots(figsize=(1.2, 1.2))
         ax.pie(
             [prob_red, prob_green],
             labels=[f"Pierd ({prob_red*100:.1f}%)", f"Castig ({prob_green*100:.1f}%)"],
@@ -237,7 +241,7 @@ with left:
             wedgeprops={"linewidth": 0.8, "edgecolor": "white"},
 
         )
-        plt.setp(ax.texts, fontsize=6)
+        plt.setp(ax.texts, fontsize=4)
         ax.axis("equal")
         # Donut opțional:
         # centre = plt.Circle((0, 0), 0.70, fc="white"); fig.gca().add_artist(centre)
@@ -307,7 +311,7 @@ with right:
                     r, s = split_card(hole[i])
                     st.markdown(f"<img src='{svg_card(r, s, True, w=90, h=120)}'/>", unsafe_allow_html=True)
                 else:
-                    st.markdown(f"<img src='{svg_card('?', 'S', False, w=90, h=120)}'/>", unsafe_allow_html=True)
+                    st.markdown(f"<img src='{svg_card('?', 'Q', False, w=90, h=120)}'/>", unsafe_allow_html=True)
     st.divider()
     # Rând 2: BOARD complet (5)
     row2 = st.container()
@@ -319,7 +323,7 @@ with right:
                     r, s = split_card(board_all[i])
                     st.markdown(f"<img src='{svg_card(r, s, True, w=90, h=120)}'/>", unsafe_allow_html=True)
                 else:
-                    st.markdown(f"<img src='{svg_card('?', 'S', False, w=90, h=120)}'/>", unsafe_allow_html=True)
+                    st.markdown(f"<img src='{svg_card('?', 'Q', False, w=90, h=120)}'/>", unsafe_allow_html=True)
 
 # RESET cu remount (fix pentru „dublu click” fantomă după reset)
 if st.button("🔄 Resetare selecție"):
@@ -379,7 +383,7 @@ if len(st.session_state.selected) == 7:
     hero_label = label_from_score(hero_score)
 
     # Afișează clar mâna ta pe river
-    st.success(f"🃏 Mâna ta pe river: **{RO_LABEL[hero_label]}**{format_hero_score(hero_score)}")
+    st.success(f"🃏 Mâna ta pe river: **{RO_LABEL[hero_label]}** {format_hero_score(hero_score)}")
 
     # (Optional) Lista mâinilor câștigătoare pe categorii
     remaining = [c for c in DECK if c not in st.session_state.selected]
