@@ -254,6 +254,7 @@ with left:
             startangle=90,
             counterclock=False,
             wedgeprops={"linewidth": 0.8, "edgecolor": "white"},
+            labeldistance=1.25  # mută textul mai spre exterior
 
         )
         plt.setp(ax.texts, fontsize=4)
